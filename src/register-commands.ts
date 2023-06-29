@@ -1,6 +1,8 @@
-require("dotenv").config();
-const { REST, Routes } = require("discord.js");
-const when = require("./commands/when.js");
+import * as dotenv from "dotenv";
+dotenv.config();
+
+import { REST, Routes } from "discord.js";
+import * as when from "./commands/when"
 
 const commands = [when.data.toJSON()];
 
