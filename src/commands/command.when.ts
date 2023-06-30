@@ -15,11 +15,10 @@ export const when: Command = {
   execute: async (interaction: ChatInputCommandInteraction) => {
     if (!interaction.isChatInputCommand()) return;
 
+    await interaction.deferReply({ ephemeral: true });
+
     const name = interaction.options.getString("name");
 
-    interaction.reply({
-      content: `${name}`,
-      ephemeral: true,
-    });
+    await interaction.followUp({ content: "NOW", ephemeral: true });
   },
 };

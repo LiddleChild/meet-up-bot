@@ -8,7 +8,7 @@ import {
   Events,
   GatewayIntentBits,
 } from "discord.js";
-import { when } from "./commands/when";
+import { when } from "./commands/command.when";
 import { Command } from "./discord";
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
