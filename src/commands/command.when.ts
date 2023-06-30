@@ -1,4 +1,12 @@
-import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
+import * as dotenv from "dotenv";
+dotenv.config();
+
+import {
+  ChatInputCommandInteraction,
+  Embed,
+  EmbedBuilder,
+  SlashCommandBuilder,
+} from "discord.js";
 import { Command } from "../discord";
 import { createEvent } from "../databases/db.event";
 
@@ -22,7 +30,14 @@ export const when: Command = {
     const author = interaction.member.user.id;
 
     const eventId = await createEvent(name, author);
+    const embedded = new EmbedBuilder()
+      .setColor("#0099ff")
+      .setTitle("Some title")
+      .setURL(`http://${process.env.FRONTEND_ADDRESS}/${eventId}`);
 
-    await interaction.followUp({ content: "NOW", ephemeral: true });
+    await interaction.followUp({
+      ephemeral: true,
+      embeds: [embedded],
+    });
   },
 };
