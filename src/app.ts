@@ -1,15 +1,34 @@
 import * as dotenv from "dotenv";
 dotenv.config();
 
-import { Client, Events, GatewayIntentBits } from "discord.js";
-import * as when from "./commands/when"
+import {
+  ChatInputCommandInteraction,
+  Client,
+  Collection,
+  Events,
+  GatewayIntentBits,
+} from "discord.js";
+import { when } from "./commands/when";
+import { Command } from "./models/discord";
 
-const discordClient = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-discordClient.once(Events.ClientReady, (client: Client) => {
+client.commands = new Collection<string, Command>();
+client.commands.set(when.data.name, when);
+
+client.once(Events.ClientReady, (client: Client) => {
   console.log(`Ready! Logged in as ${client.user.tag}`);
 });
 
-discordClient.on(Events.InteractionCreate, when.execute);
+client.on(
+  Events.InteractionCreate,
+  (interaction: ChatInputCommandInteraction) => {
+    if (!interaction.isCommand) return;
 
-discordClient.login(process.env.DISCORD_TOKEN);
+    interaction.client.commands
+      .get(interaction.commandName)
+      .execute(interaction);
+  }
+);
+
+client.login(process.env.DISCORD_TOKEN);

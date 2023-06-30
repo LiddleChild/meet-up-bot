@@ -1,11 +1,25 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
+import { Command } from "../models/discord";
 
-export const data = new SlashCommandBuilder()
-  .setName("when")
-  .setDescription("WHEN?");
+export const when: Command = {
+  data: new SlashCommandBuilder()
+    .setName("when")
+    .setDescription("WHEN?")
+    .addStringOption((option) =>
+      option
+        .setName("name")
+        .setDescription("Name your upcoming event!")
+        .setRequired(true)
+    ),
 
-export const execute = async (interaction: ChatInputCommandInteraction) => {
-  if (!interaction.isChatInputCommand()) return;
+  execute: async (interaction: ChatInputCommandInteraction) => {
+    if (!interaction.isChatInputCommand()) return;
 
-  interaction.reply("NOW");
-}
+    const name = interaction.options.getString("name");
+
+    interaction.reply({
+      content: `${name}`,
+      ephemeral: true,
+    });
+  },
+};

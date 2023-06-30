@@ -6,7 +6,7 @@ import {
 
 export type CommandExecuteFunction = (a: ChatInputCommandInteraction) => void;
 export interface Command {
-  data: SlashCommandBuilder;
+  data: Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
   execute: CommandExecuteFunction;
 }
 
