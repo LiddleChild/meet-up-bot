@@ -19,7 +19,9 @@ export const when: Command = {
     await interaction.deferReply({ ephemeral: true });
 
     const name = interaction.options.getString("name");
-    const eventId = await createEvent(name);
+    const author = interaction.member.user.id;
+
+    const eventId = await createEvent(name, author);
 
     await interaction.followUp({ content: "NOW", ephemeral: true });
   },
