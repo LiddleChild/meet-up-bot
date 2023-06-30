@@ -1,5 +1,6 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
 import { Command } from "../discord";
+import { createEvent } from "../databases/db.event";
 
 export const when: Command = {
   data: new SlashCommandBuilder()
@@ -18,6 +19,7 @@ export const when: Command = {
     await interaction.deferReply({ ephemeral: true });
 
     const name = interaction.options.getString("name");
+    const eventId = await createEvent(name);
 
     await interaction.followUp({ content: "NOW", ephemeral: true });
   },

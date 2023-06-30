@@ -8,8 +8,12 @@ export interface IEvent extends Document {
 
 const eventSchema: Schema = new Schema<IEvent>({
   name: { type: SchemaTypes.String, required: true },
-  startsAt: { type: SchemaTypes.Date, required: true },
-  endsAt: { type: SchemaTypes.Date, required: true },
+  startsAt: { type: SchemaTypes.Date },
+  endsAt: { type: SchemaTypes.Date },
 });
 
-export const Event = mongoose.model<IEvent>("event", eventSchema);
+export const EventModel = mongoose.model<IEvent>(
+  "event",
+  eventSchema,
+  "events"
+);

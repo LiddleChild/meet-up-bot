@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import client from "./discordapp";
+import client from "./app.discord";
 
 (async () => {
   await client.login(process.env.DISCORD_TOKEN);
