@@ -1,34 +1,11 @@
-import * as dotenv from "dotenv";
-dotenv.config();
+import mongoose from "mongoose";
+import client from "./discordapp";
 
-import {
-  ChatInputCommandInteraction,
-  Client,
-  Collection,
-  Events,
-  GatewayIntentBits,
-} from "discord.js";
-import { when } from "./commands/when";
-import { Command } from "./models/discord";
+(async () => {
+  await client.login(process.env.DISCORD_TOKEN);
+  console.log("Discord connected!");
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-
-client.commands = new Collection<string, Command>();
-client.commands.set(when.data.name, when);
-
-client.once(Events.ClientReady, (client: Client) => {
-  console.log(`Ready! Logged in as ${client.user.tag}`);
-});
-
-client.on(
-  Events.InteractionCreate,
-  (interaction: ChatInputCommandInteraction) => {
-    if (!interaction.isCommand) return;
-
-    interaction.client.commands
-      .get(interaction.commandName)
-      .execute(interaction);
-  }
-);
-
-client.login(process.env.DISCORD_TOKEN);
+  const URL = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@meet-up.xjlbrss.mongodb.net/${process.env.MONGODB_DBNAME}?retryWrites=true&w=majority`;
+  await mongoose.connect(URL);
+  console.log("MongoDB connected!");
+})();
