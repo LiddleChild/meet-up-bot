@@ -31,7 +31,7 @@ for (const file of commandFiles) {
   try {
     console.log("Registering slash commands...");
 
-    await rest.put(Routes.applicationCommands(process.env.CLIENT_ID), {
+    await rest.put(Routes.applicationCommands(process.env.DISCORD_CLIENT_ID), {
       body: commands,
     });
 
