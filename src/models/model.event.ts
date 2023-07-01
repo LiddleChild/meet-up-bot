@@ -5,6 +5,7 @@ export interface IEvent extends Document {
   name: string;
   startsAt: Date;
   endsAt: Date;
+  expiredAt: Date;
 }
 
 const eventSchema: Schema = new Schema<IEvent>({
@@ -12,6 +13,7 @@ const eventSchema: Schema = new Schema<IEvent>({
   name: { type: SchemaTypes.String, required: true },
   startsAt: { type: SchemaTypes.Date },
   endsAt: { type: SchemaTypes.Date },
+  expiredAt: { type: SchemaTypes.Date, required: true },
 });
 
 export const EventModel = mongoose.model<IEvent>(

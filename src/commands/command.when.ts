@@ -32,7 +32,7 @@ export const when: Command = {
     const eventId = await createEvent(name, author);
     const embedded = new EmbedBuilder()
       .setColor("#0099ff")
-      .setTitle("Some title")
+      .setTitle("[ Click to complete event information! ]")
       .setURL(`http://${process.env.FRONTEND_ADDRESS}/${eventId}`);
 
     await interaction.followUp({
