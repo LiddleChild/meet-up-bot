@@ -2,8 +2,8 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 import mongoose from "mongoose";
-import client from "./app.discord";
-import app from "./app.web";
+import client from "./app/app.discord";
+import app from "./app/app.web";
 
 (async () => {
   await client.login(process.env.DISCORD_TOKEN);
