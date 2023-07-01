@@ -1,4 +1,4 @@
-import { HydratedDocument, Types } from "mongoose";
+import { HydratedDocument, MongooseError, Types } from "mongoose";
 import { EventModel, IEvent } from "../models/model.event";
 
 export const createEvent = async (
@@ -13,4 +13,16 @@ export const createEvent = async (
   await event.save();
 
   return event._id;
+};
+
+export const getEventByEventId = async (eventId: string): Promise<IEvent> => {
+  let data: IEvent;
+
+  try {
+    data = await EventModel.findById(eventId);
+  } catch (err) {
+    console.error(err);
+  }
+
+  return data;
 };

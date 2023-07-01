@@ -1,12 +1,11 @@
 import * as dotenv from "dotenv";
 dotenv.config();
 
-import express, { Request, Response } from "express";
+import express from "express";
+import * as apiController from "../controllers/controller.api";
 
 const app = express();
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Hello, World");
-});
+app.get("/event/:eventId", apiController.getEvent);
 
 export default app;
