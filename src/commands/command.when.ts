@@ -33,7 +33,7 @@ export const when: Command = {
     const embedded = new EmbedBuilder()
       .setColor("#0099ff")
       .setTitle("[ Click to complete event information! ]")
-      .setURL(`http://${process.env.FRONTEND_ADDRESS}/${eventId}`);
+      .setURL(`http://${process.env.FRONTEND_ADDRESS}/create/${eventId}`);
 
     await interaction.followUp({
       ephemeral: true,
