@@ -6,13 +6,17 @@ export const getEvent = async (req: Request, res: Response) => {
   const eventId = req.params["eventId"];
 
   let data: IEvent = await db.getEventByEventId(eventId);
-  const date = new Date(data.toJSON()["expiredAt"]);
 
-  if (!!data && new Date() < date) {
-    res.send(data.toJSON()).status(200);
-  } else {
-    res
-      .send({ message: `Event ID: ${eventId} not found or expired!` })
-      .status(404);
+  if (!data) {
+    res.status(404).send({ message: `Event ID: ${eventId} not found` });
+    return;
   }
+
+  const date = new Date(data.toJSON()["expiredAt"]);
+  if (new Date() >= date) {
+    res.status(404).send({ message: `Event ID: ${eventId} expired` });
+    return;
+  }
+
+  res.status(200).send(data.toJSON());
 };
