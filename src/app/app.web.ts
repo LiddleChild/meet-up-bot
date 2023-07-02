@@ -8,6 +8,9 @@ import * as apiController from "../controllers/controller.api";
 const app = express();
 
 app.use(cors());
+app.use(express.json());
+
 app.get("/event/:eventId", apiController.getEvent);
+app.post("/event/:eventId", apiController.setEventDate);
 
 export default app;

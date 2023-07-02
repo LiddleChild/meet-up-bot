@@ -22,8 +22,16 @@ export const getEventByEventId = async (eventId: string): Promise<IEvent> => {
   try {
     data = await EventModel.findById(eventId);
   } catch (err) {
-    console.error(err);
+    throw err;
   }
 
   return data;
+};
+
+export const setEventDateById = async (
+  eventId: string,
+  startsAt: Date,
+  endsAt: Date
+) => {
+  await EventModel.findByIdAndUpdate(eventId, { startsAt, endsAt });
 };
