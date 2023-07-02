@@ -37,8 +37,8 @@ export const setEventDate = async (req: Request, res: Response) => {
 
   const eventId = req.params["eventId"];
   try {
-    db.setEventDateById(eventId, body.startsAt, body.endsAt);
-    res.redirect(`http://${process.env.FRONTEND_ADDRESS}/${eventId}`);
+    await db.setEventDateById(eventId, body.startsAt, body.endsAt);
+    res.sendStatus(200);
   } catch (err) {
     res.status(404).send({ message: `Event ID: ${eventId} not found` });
   }

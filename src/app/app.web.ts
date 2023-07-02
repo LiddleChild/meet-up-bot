@@ -7,7 +7,11 @@ import * as apiController from "../controllers/controller.api";
 
 const app = express();
 
-app.use(cors());
+const options: cors.CorsOptions = {
+  origin: `http://${process.env.FRONTEND_ADDRESS}`,
+};
+
+app.use(cors(options));
 app.use(express.json());
 
 app.get("/event/:eventId", apiController.getEvent);

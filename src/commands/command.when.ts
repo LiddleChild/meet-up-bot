@@ -3,7 +3,6 @@ dotenv.config();
 
 import {
   ChatInputCommandInteraction,
-  Embed,
   EmbedBuilder,
   SlashCommandBuilder,
 } from "discord.js";
@@ -33,6 +32,7 @@ export const when: Command = {
     const embedded = new EmbedBuilder()
       .setColor("#0099ff")
       .setTitle("[ Click to complete event information! ]")
+      .setDescription("Please complete within 15 minutes")
       .setURL(`http://${process.env.FRONTEND_ADDRESS}/create/${eventId}`);
 
     await interaction.followUp({
